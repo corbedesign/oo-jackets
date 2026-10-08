@@ -190,9 +190,10 @@ setVid();
 
 <button id="top" aria-label="Voltar ao topo">↑</button>
 
-<script src="products.js"></script>
+<script>/* ?v= evita o navegador/GitHub Pages servir products.js e fotos.js antigos do cache */
+document.write('<script src="products.js?v='+Date.now()+'"><\/script>');</script>
 <script>try{FOTOS}catch(e){window.FOTOS={}}</script>
-<script src="fotos.js" onerror="window.FOTOS=window.FOTOS||{}"></script>
+<script>document.write('<script src="fotos.js?v='+Date.now()+'" onerror="window.FOTOS=window.FOTOS||{}"><\/script>');</script>
 <script>
 const app=document.getElementById('app'),links=document.getElementById('links');
 const esc=t=>String(t).replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
