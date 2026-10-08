@@ -16,7 +16,7 @@ const CATALOGO=[
  {"grupo":{"id": "photochromic", "nome": "Photochromic", "dir": "capsulas/photochromic", "desc": "O calor revela a arte. Elipses e caveiras escondidas no cabedal aparecem com o uso. Vem com caixa exclusiva.", "big": 1, "soon": 0, "cor": "#ff6a2b"},"itens":[
   {"c":"FOF100770","n":"Crossfire Photochromic","p":"799,90","lim":1}
  ]},
- {"grupo":{"id": "biolumia", "nome": "Biolumia", "dir": "capsulas/biolumia", "desc": "Só exploramos 3% dos oceanos. O resto brilha no escuro: a tinta é glow-in-the-dark.", "big": 1, "soon": 1, "cor": "#27d3ff"},"itens":[
+ {"grupo":{"id": "biolumia", "nome": "Biolumia", "dir": "capsulas/biolumia", "desc": "Só exploramos 3% dos oceanos. O resto brilha no escuro: a tinta é glow-in-the-dark.", "big": 1, "soon": 0, "cor": "#27d3ff"},"itens":[
   {"c":"FOA407993","n":"Biolumia Creature SS Tee","p":"149,90","f":"Regular","cores":[{"k":"02E","n":"Blackout"},{"k":"74W","n":"Faded Green"}]},
   {"c":"FOA408592","n":"Jellyfish Bubbles SS Tee","p":"149,90","f":"Regular","cores":[{"k":"02E","n":"Blackout"},{"k":"100","n":"White"},{"k":"6GA","n":"Abyss"}]},
   {"c":"FOA408593","n":"Biolumia Frog SS Tee","p":"149,90","f":"Regular","cores":[{"k":"02E","n":"Blackout"},{"k":"100","n":"White"}]},
