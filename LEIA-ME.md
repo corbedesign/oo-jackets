@@ -10,7 +10,7 @@ converter.command        no Mac: duplo clique para converter (instala o que prec
 produtos-checklist.csv  1 linha por produto (204), com o nome exato do arquivo de cada foto
 img/                    fotos prontas, separadas por seção e grupo (capsulas/cyberflora, apparel/camisetas...)
 _originais/             onde VOCÊ joga as fotos baixadas. Não vai pro GitHub
-fonts/  media/          fontes e vídeo de fundo (bg-l/bg-p .webm/.mp4 e poster-l/poster-p .jpg)
+fonts/  media/          fontes e vídeos (bg-l/bg-p .webm/.mp4, poster-l/poster-p .jpg e LOADING.webm/.mp4 (maiúsculas, como estão na repo), a tela de loading só no celular: 3 s mínimos, só sai com fontes e página prontas)
 ```
 
 ## Colocar as fotos (3 passos)
