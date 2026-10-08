@@ -64,7 +64,7 @@ section{padding:120px 28px 40px;position:relative}
 .track.drag{cursor:grabbing;scroll-snap-type:none}
 .track.drag *{pointer-events:none;user-select:none}
 .pc{flex:0 0 clamp(224px,22vw,292px);scroll-snap-align:start;min-width:0}
-.vis{aspect-ratio:4/5;border-radius:6px;position:relative;overflow:hidden;background:radial-gradient(120% 90% at 30% 20%,color-mix(in srgb,var(--c) 38%,#000) 0%,#0b0b0d 72%);border:1px solid rgba(255,255,255,.1);display:grid;place-items:center}
+.vis{aspect-ratio:1/1;border-radius:6px;position:relative;overflow:hidden;background:radial-gradient(120% 90% at 30% 20%,color-mix(in srgb,var(--c) 38%,#000) 0%,#0b0b0d 72%);border:1px solid rgba(255,255,255,.1);display:grid;place-items:center}
 .vis::after{content:"";width:46%;aspect-ratio:2.1;border:2px solid var(--c);border-radius:50%;opacity:.5;box-shadow:0 0 50px color-mix(in srgb,var(--c) 40%,transparent)}
 .vis.has::after{display:none}
 .vis picture,.vis img{position:absolute;inset:0;width:100%;height:100%;display:block;object-fit:cover}
@@ -199,12 +199,19 @@ function card(g,it,sec){
   if(it.novo)tags+='<span class="tag">Novo</span>';
   if(it.lim)tags+='<span class="tag">Edição limitada</span>';
   const loja=it.ex?`<span class="tag loja">Só em loja · ${esc(it.ex)}</span>`:'';
-  const img=main===null?'':`<picture><source type="image/avif" srcset="${fotoUrl(g.dir,it.c,main,'avif')}"><img src="${fotoUrl(g.dir,it.c,main,'webp')}" alt="${esc(it.n)}" loading="lazy" decoding="async" width="800" height="1000"></picture>`;
+  const img=main===null?'':`<picture><source type="image/avif" srcset="${fotoUrl(g.dir,it.c,main,'avif')}"><img src="${fotoUrl(g.dir,it.c,main,'webp')}" alt="${esc(it.n)}" loading="lazy" decoding="async" width="800" height="800"></picture>`;
   const cs=it.cores||[];
-  const cl=(cs.length>1?cs.map((k,n)=>`<button type="button" data-k="${k.k}" class="${n?'':'on'}">${esc(k.n)}</button>`).join(''):cs.length===1?`<i>${esc(cs[0].n)}</i>`:'')+(it.exc?`<span class="ex">Só em loja na cor ${esc(it.exc)}</span>`:'');
+  const temVar=cs.length>1&&fs.some(v=>v!=='');/* botoes de cor so se houver foto de cor; senao, so o texto */
+  const cl=(temVar?cs.map((k,n)=>`<button type="button" data-k="${k.k}" class="${n?'':'on'}">${esc(k.n)}</button>`).join(''):cs.length?`<i>${cs.map(k=>esc(k.n)).join(' · ')}</i>`:'')+(it.exc?`<span class="ex">Só em loja na cor ${esc(it.exc)}</span>`:'');
   const cores=cl?`<div class="cores">${cl}</div>`:'';
   const preco=it.p?`<div class="pr">R$ ${it.p}</div>`:`<div class="pr q">Consulte na loja</div>`;
   return `<article class="pc" data-c="${it.c}" ${it.ex?'data-ex':''}><div class="vis${img?' has':''}">${img}<div class="tags">${tags}</div>${loja}<span class="cd">${it.c}</span></div><div class="info"><div><b>${esc(it.n)}</b><span>${it.c}${it.f?' · '+it.f:''}</span></div>${preco}</div>${cores}</article>`;
+}
+/* Só aparece o que tem foto. Sem nenhuma foto ainda (fotos.js vazio) = modo demonstração: mostra tudo com placeholder. */
+if(typeof FOTOS!=='undefined'&&Object.keys(FOTOS).length){
+  CATALOGO.forEach(s=>s.grupos.forEach(g=>{g.itens=g.itens.filter(i=>FOTOS[i.c])}));
+  CATALOGO.forEach(s=>{s.grupos=s.grupos.filter(g=>g.itens.length)});
+  for(let n=CATALOGO.length-1;n>=0;n--)if(!CATALOGO[n].grupos.length)CATALOGO.splice(n,1);
 }
 let h='';
 CATALOGO.forEach(s=>{
