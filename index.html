@@ -66,6 +66,16 @@ section{padding:120px 28px 40px;position:relative}
 .info span{font-family:var(--ui);font-size:12px;color:var(--mut);letter-spacing:0}
 .info .pr{font:700 20px var(--head);white-space:nowrap;letter-spacing:-.03em}
 
+.lojas{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.loja{display:flex;flex-direction:column;gap:4px;padding:24px 22px 20px;border-radius:16px;background:var(--glass);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.14)}
+.loja .t{font:700 11px var(--head);letter-spacing:0;text-transform:uppercase;color:var(--mut)}
+.loja h3{font:800 24px/1.05 var(--head);letter-spacing:-.03em;text-transform:uppercase;margin:2px 0 4px}
+.loja .l{font:700 13px var(--head);color:#d6d6d6;letter-spacing:-.01em}
+.loja address{font-style:normal;color:#b5b5b5;font-size:15px;line-height:1.45}
+.loja .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:18px}
+.loja .acts a{display:inline-flex;align-items:center;min-height:44px;padding:0 16px;border-radius:99px;font:700 12px var(--head);letter-spacing:0;color:#fff;text-decoration:none;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.16);transition:background .3s,border-color .3s}
+.loja .acts a:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.4)}
+.loja .acts a.tel{white-space:nowrap}
 footer{text-align:center;padding:140px 24px 100px}
 footer h2{font:800 clamp(30px,5vw,64px)/1.05 var(--head);text-transform:uppercase;margin:0 0 16px;letter-spacing:-.03em}
 footer p{color:var(--mut);margin:0;font-size:17px}
@@ -100,6 +110,7 @@ html.fb-body .hero p.s{font-size:18px;font-weight:300;line-height:1.6}
   nav.open .links{opacity:1;visibility:visible;transform:none}
   nav .links a{font-size:clamp(26px,8.5vw,42px);font-weight:800;letter-spacing:-.03em;padding:10px 0;color:#fff;border-bottom:0}
   nav .links a.on{color:var(--accent)}
+  .lojas{grid-template-columns:1fr}
   .blk{grid-template-columns:1fr;gap:28px;margin-bottom:90px}
   .blk:nth-child(even) .txt{order:0}
   section{padding:150px 18px 20px}
@@ -138,6 +149,8 @@ setVid();
 </header>
 
 <main id="app"></main>
+
+<section id="lojas" data-accent="#f2f2f2" style="--c:#f2f2f2"><div class="sec-h"><h2 data-r>Lojas</h2><p data-r>Veja a coleção de perto. Endereços no estado de São Paulo.</p></div><div class="lojas" id="lojasGrid"></div></section>
 
 <footer>
   <h2 data-r="in">Oakley H2'26.<br>Veja de perto na loja.</h2>
@@ -178,6 +191,23 @@ SECS.forEach(s=>{
   h+='</section>';
 });
 app.innerHTML=h;
+
+const LOJAS=[
+ {t:"O Store",n:"Dom Pedro",l:"Parque D. Pedro Shopping",a:"Av. Guilherme Campos, 500",c:"Campinas, SP",tel:"(19) 99211-4159"},
+ {t:"O Store",n:"Morumbi",l:"MorumbiShopping",a:"Av. Roque Petroni Júnior, 1089",c:"São Paulo, SP",tel:"(11) 5189-4805"},
+ {t:"O Store",n:"Anália Franco",l:"Shopping Anália Franco",a:"Av. Regente Feijó, 1739",c:"São Paulo, SP",tel:"(11) 94261-0634"},
+ {t:"O Vault",n:"Catarina",l:"Catarina Fashion Outlet",a:"Rod. Castello Branco, km 60",c:"São Roque, SP",tel:"(11) 4130-4800",nt:"Central"},
+ {t:"O Store",n:"Center Norte",l:"Shopping Center Norte",a:"Travessa Casalbuono, 120",c:"São Paulo, SP",tel:"(11) 2226-0400",nt:"Central"},
+ {t:"O Vault",n:"Itupeva",l:"Outlet Premium",a:"Rod. dos Bandeirantes, km 72",c:"Itupeva, SP",tel:"(11) 96413-6062"},
+ {t:"O Store",n:"Eldorado",l:"Shopping Eldorado",a:"Av. Rebouças, 3970",c:"São Paulo, SP",tel:"(11) 99223-7297"},
+ {t:"Outlet Premium",n:"Imigrantes",l:"",a:"Rod. dos Imigrantes, km 43",c:"São Bernardo do Campo, SP",tel:"(11) 91766-5213"}
+];
+document.getElementById('lojasGrid').innerHTML=LOJAS.map(o=>{
+  const q=encodeURIComponent('Oakley '+o.n+', '+o.a+', '+o.c);
+  const d='+55'+o.tel.replace(/\D/g,'');
+  return `<div class="loja" data-r><span class="t">${o.t}</span><h3>${o.n}</h3>${o.l?`<span class="l">${o.l}</span>`:''}<address>${o.a}<br>${o.c}</address><div class="acts"><a class="tel" href="tel:${d}">${o.tel}${o.nt?' · '+o.nt:''}</a><a href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" rel="noopener">Como chegar</a></div></div>`;
+}).join('');
+links.insertAdjacentHTML('beforeend','<a href="#lojas" data-a="#f2f2f2">Lojas</a>');
 
 /* --- Scroll: fade + blur entrando E saindo. Independe de prefers-reduced-motion. --- */
 const els=[...document.querySelectorAll('[data-r]')];
